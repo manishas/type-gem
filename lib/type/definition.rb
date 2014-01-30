@@ -93,7 +93,8 @@ module Type
     # @return [Boolean]
     def valid?(input, squash_exceptions = true)
       validators.all? { |proc| proc[input] }
-    rescue proc { squash_exceptions }
+    rescue Exception
+      raise unless squash_exceptions
       false
     end
 
