@@ -100,6 +100,7 @@ module Type
     # @return [Object] the result of casting, guaranteed to be valid.
     # @raise [Type::CastError]
     def cast!(input)
+      return input if valid?(input)
       castors.reduce(input) do |intermediate, castor|
         castor[intermediate]
       end.tap do |output|
