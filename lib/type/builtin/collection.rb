@@ -15,11 +15,24 @@ module Type
     validate do |input|
       input.kind_of?(::Hash)
     end
+
+    cast_1_9 = proc do |input|
+      ::Hash[input]
+    end
+
+    cast_2_0 = proc do |input|
+      begin
+        Kernel::Hash(input)
+      rescue TypeError
+        cast_1_9[input]
+      end
+    end
+
     cast do |input|
       if Kernel.respond_to?(:Hash)
-        Kernel::Hash(input)
+        cast_2_0[input]
       else
-        ::Hash[input]
+        cast_1_9[input]
       end
     end
   end
