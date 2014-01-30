@@ -37,6 +37,12 @@ Type::Int32!(input) # alias for Type::Int32.cast!(input)
 `Type` comes with a variety of built-in type defintions, which can be used for
 validation or casting.
 
+ - [Scalar](#scalar-type-definitions)
+ - [Nilable Modifier](#nilable-type-definitions)
+ - [Collection](#collection-type-definitions)
+ - [Constrained Collections](#constrained-collection-type-definitions)
+ - [Nilable Constrained Collections](#nilable-constrained-collection-type-definitions)
+
 ### Scalar Type Definitions:
 
 The most basic type definitions are scalar
