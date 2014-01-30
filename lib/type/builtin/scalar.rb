@@ -14,28 +14,40 @@ module Type
   scalar(:Int32).from(:Integer) do
     int32_range = (-(1 << 31) ... (1 << 31))
     validate do |input|
-      int32_range.include?(input)
+      unless int32_range.include?(input)
+        raise RangeError.new("#{input} not in #{int32_range}")
+      end
+      true
     end
   end
 
   scalar(:Int64).from(:Integer) do
     int64_range = (-(1 << 63) ... (1 << 63))
     validate do |input|
-      int64_range.include?(input)
+      unless int64_range.include?(input)
+        raise RangeError.new("#{input} not in #{int64_range}")
+      end
+      true
     end
   end
 
   scalar(:UInt32).from(:Integer) do
-    int32_range = (0 ... (1 << 32))
+    uint32_range = (0 ... (1 << 32))
     validate do |input|
-      int32_range.include?(input)
+      unless uint32_range.include?(input)
+        raise RangeError.new("#{input} not in #{uint32_range}")
+      end
+      true
     end
   end
 
   scalar(:UInt64).from(:Integer) do
-    int64_range = (0 ... (1 << 64))
+    uint64_range = (0 ... (1 << 64))
     validate do |input|
-      int64_range.include?(input)
+      unless uint64_range.include?(input)
+        raise RangeError.new("#{input} not in #{uint64_range}")
+      end
+      true
     end
   end
 

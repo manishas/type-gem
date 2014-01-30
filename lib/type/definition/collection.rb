@@ -17,7 +17,7 @@ module Type
     class Collection
       include Definition
 
-      def valid?(input, &block)
+      def valid?(input, *args, &block)
         return false unless input.kind_of?(Enumerable)
         super
       end

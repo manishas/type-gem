@@ -25,7 +25,7 @@ module Type
       end
 
       # Returns true if input is nil *or* the input is valid
-      def valid?(input)
+      def valid?(input, *args)
         input.nil? || super
       end
 

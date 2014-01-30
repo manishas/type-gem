@@ -89,10 +89,11 @@ module Type
     attr_reader :name
 
     # @param input [Object]
+    # @param squash_exceptions [Boolean] (true)
     # @return [Boolean]
-    def valid?(input)
+    def valid?(input, squash_exceptions = true)
       validators.all? { |proc| proc[input] }
-    rescue
+    rescue proc { squash_exceptions }
       false
     end
 
@@ -104,7 +105,7 @@ module Type
       castors.reduce(input) do |intermediate, castor|
         castor[intermediate]
       end.tap do |output|
-        raise ValidationError.new(output, self) unless valid?(output)
+        raise ValidationError.new(output, self) unless valid?(output, false)
       end
     rescue
       raise CastError.new(input, self)
