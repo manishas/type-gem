@@ -63,6 +63,21 @@ Type::Int32!('three')
 #! Type::CastError: Could not cast "three"(String) with Type::Int32
 ~~~
 
+The complete list of built-in scalar type definitions is:
+
+~~~ ruby
+Type::Integer # {x∈ℤ}
+Type::Int32   # {x∈ℤ|[-2^31,2^31)}
+Type::UInt32  # {x∈ℤ|[0,2^32)}
+Type::Int64   # {x∈ℤ|[-2^63,2^63)}
+Type::UInt64  # {x∈ℤ|[0,2^64)}
+Type::Float   # {x∈ℝ,+∞,-∞}
+Type::Float32 # {x∈ℝ}
+Type::Float64 # {x∈ℝ}
+Type::Boolean # {true,false}
+Type::String  # any string
+~~~
+
 ### Nilable Type Definitions:
 
 Any `Type::Definition` can be declared nilable -- that is, it will report `nil`
@@ -107,6 +122,14 @@ Type::Set!([1,2,3])
 # => <Set: {1, 2, 3}>
 Type::Set!('foo')
 #! Type::CastError: Could not cast "foo"(String) with Type::Set
+~~~
+
+The complete list of built-in collection type definitions is:
+
+~~~ ruby
+Type::Array
+Type::Set
+Type::Hash
 ~~~
 
 ### Constrained Collection Type Definitions:
