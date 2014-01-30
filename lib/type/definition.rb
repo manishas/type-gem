@@ -100,7 +100,6 @@ module Type
     # @return [Object] the result of casting, guaranteed to be valid.
     # @raise [Type::CastError]
     def cast!(input)
-      input = yield if block_given?
       castors.reduce(input) do |intermediate, castor|
         castor[intermediate]
       end.tap do |output|
