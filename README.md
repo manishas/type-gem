@@ -68,9 +68,9 @@ The complete list of built-in scalar type definitions is:
 ~~~ ruby
 Type::Integer # {x∈ℤ}
 Type::Int32   # {x∈ℤ|[-2^31,2^31)}
-Type::UInt32  # {x∈ℤ|[0,2^32)}
 Type::Int64   # {x∈ℤ|[-2^63,2^63)}
-Type::UInt64  # {x∈ℤ|[0,2^64)}
+Type::UInt32  # {x∈ℕ|[0,2^32)}
+Type::UInt64  # {x∈ℕ|[0,2^64)}
 Type::Float   # {x∈ℝ,+∞,-∞}
 Type::Float32 # {x∈ℝ}
 Type::Float64 # {x∈ℝ}
