@@ -101,7 +101,6 @@ module Type
     # @raise [Type::CastError]
     def cast!(input)
       input = yield if block_given?
-      raise CastError.new(input, self) if input.nil?
       castors.reduce(input) do |intermediate, castor|
         castor[intermediate]
       end.tap do |output|

@@ -60,13 +60,10 @@ shared_examples_for 'Type::Definition::Nilable compatibility' do
     it { should be_nilable }
     it { should cast(nil).to(nil) }
     it { should validate(nil) }
-    it { should_not cast(Object.new) unless described_class == Type::String }
   end
   it { should_not be_a_kind_of Type::Definition::Nilable }
   it { should_not be_nilable }
-  it { should_not cast(nil) }
   it { should_not validate(nil) }
-  it { should_not cast(Object.new) unless described_class == Type::String }
 end
 
 shared_examples_for 'Type::Definition::Scalar' do
@@ -77,6 +74,7 @@ end
 
 shared_examples_for 'Type::Integer' do
   it_should_behave_like 'Type::Definition::Scalar'
+  it { should_not cast(nil) }
 
   it { should cast(414).unchanged }
   it { should cast('123').to(123) }
@@ -139,10 +137,13 @@ describe Type::Boolean do
   it { should_not validate 'false' }
   it { should cast(true).unchanged }
   it { should cast(false).unchanged }
+  it { should cast(nil).to(false) }
+  it { should cast(Object.new).to(true) }
 end
 
 shared_examples_for 'Type::Float' do
   it_should_behave_like 'Type::Definition::Scalar'
+  it { should_not cast(nil) }
   it { should cast(10).to(10.0) }
   it { should cast(12.3).unchanged }
   it { should cast('12.3').to(12.3) }
@@ -175,12 +176,14 @@ end
 
 describe Type::String do
   its(:to_s) { should match(/Type::String/) }
+  it { should_not cast(nil) }
   it_should_behave_like 'Type::Definition::Scalar'
   it { should cast(:abc).to('abc') }
 end
 
 describe Type::Array do
   its(:to_s) { should match(/Type::Array/) }
+  it { should_not cast(nil) }
   it { should be_a_kind_of Type::Definition::Collection }
   it { should validate(['asdf']) }
   it { should cast(['foo']).unchanged }
@@ -189,6 +192,7 @@ end
 
 describe Type::Array.of(:String) do
   its(:to_s) { should match(/Type::Array\(.*String.*\)/) }
+  it { should_not cast(nil) }
   it { should be_a_kind_of Type::Definition::Collection::Constrained }
   it { should validate(['asdf']) }
   it { should_not validate([nil, 'asdf']) }
@@ -199,6 +203,7 @@ end
 
 describe Type::Array.of(:String?) do
   it { should be_a_kind_of Type::Definition::Collection::Constrained }
+  it { should_not cast(nil) }
   it { should validate(['asdf']) }
   it { should validate([nil, 'asdf']) }
   it { should_not validate([:asdf]) }
@@ -208,12 +213,14 @@ end
 
 describe Type::Hash do
   its(:to_s) { should match(/Type::Hash/) }
+  it { should_not cast(nil) }
   it { should cast([[1, 2], [3, 4]]).to(1 => 2, 3 => 4) }
   it { should_not cast(17) }
 end
 
 describe Type::Hash.of(:String => :Integer) do
   its(:to_s) { should match(/Type::Hash\(.*String.*Integer.*\)/) }
+  it { should_not cast(nil) }
   it { should be_a_kind_of Type::Definition::Collection::Constrained }
   it { should validate('foo' => 12) }
   it { should_not validate(foo: 12) }
@@ -225,6 +232,7 @@ describe Type::Hash.of(:String => :Integer) do
 end
 
 describe Type::Set do
+  it { should_not cast(nil) }
   it { should_not validate([123, 456]) }
   it { should validate(Set.new([123, 456])) }
   it { should_not validate(17) }
@@ -235,6 +243,7 @@ end
 
 describe Type::Set.of(:Integer) do
   its(:to_s) { should match(/Type::Set(.*Integer.*)/) }
+  it { should_not cast(nil) }
   it { should validate(Set.new([1, 2, 3, 4])) }
   it { should_not validate([1, 2, 3, 4]) }
   it { should cast(Set.new([1, 2, 3, 4])).unchanged }

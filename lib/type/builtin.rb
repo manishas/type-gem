@@ -66,6 +66,9 @@ module Type
     validate do |input|
       booleans.include?(input)
     end
+    cast do |input|
+      input ? true : false
+    end
   end
 
   scalar(:String) do
@@ -73,6 +76,7 @@ module Type
       input.kind_of?(::String)
     end
     cast do |input|
+      raise TypeError if input.nil?
       Kernel::String(input)
     end
   end
