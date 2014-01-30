@@ -38,11 +38,13 @@ shared_examples_for 'bounded Type::Integer' do
   it { should cast(range_max).unchanged }
   it { should cast(range_min).unchanged }
 
-  it { should_not cast(range_max.next) }
-  it { should_not cast(range_min.pred) }
+  it { should_not cast(range_max + 1) }
+  it { should_not cast(range_min - 1) }
 
   it { should validate(range_max) }
-  it { should_not validate(range_max.next) }
+  it { should_not validate(range_max + 1) }
+  it { should validate(range_min) }
+  it { should_not validate(range_min - 1) }
 end
 
 describe Type::Int32 do
