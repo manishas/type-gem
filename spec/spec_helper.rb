@@ -51,3 +51,16 @@ RSpec::Matchers.define :validate do |input|
     "validate #{input.inspect}(#{input.class})"
   end
 end
+
+shared_examples_for 'Type::Definition::Nilable compatibility' do
+  context 'when nilable' do
+    subject { described_class.nilable }
+    it { should be_a_kind_of Type::Definition::Nilable }
+    it { should be_nilable }
+    it { should cast(nil).to(nil) }
+    it { should validate(nil) }
+  end
+  it { should_not be_a_kind_of Type::Definition::Nilable }
+  it { should_not be_nilable }
+  it { should_not validate(nil) }
+end
