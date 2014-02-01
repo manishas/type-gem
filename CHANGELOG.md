@@ -3,7 +3,7 @@
 ## Next release (TBD)
 
  - Improve Type::Boolean to cast truthy and falsy objects to true and false.
- - Improve exception message when casting an out-of-range integer via ont of
+ - Improve exception message when casting an out-of-range integer via one of
    the range-limited Integer type definitions (e.g., Int32)
  - Improve performance when casting already-valid objects.
  - Fixed tests for JRuby and Type::Int64
