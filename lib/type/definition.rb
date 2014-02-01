@@ -89,10 +89,12 @@ module Type
     attr_reader :name
 
     # @param input [Object]
+    # @param squash_exceptions [Boolean] (true)
     # @return [Boolean]
-    def valid?(input)
+    def valid?(input, squash_exceptions = true)
       validators.all? { |proc| proc[input] }
-    rescue
+    rescue Exception
+      raise unless squash_exceptions
       false
     end
 
@@ -100,12 +102,11 @@ module Type
     # @return [Object] the result of casting, guaranteed to be valid.
     # @raise [Type::CastError]
     def cast!(input)
-      input = yield if block_given?
-      raise CastError.new(input, self) if input.nil?
+      return input if valid?(input)
       castors.reduce(input) do |intermediate, castor|
         castor[intermediate]
       end.tap do |output|
-        raise ValidationError.new(output, self) unless valid?(output)
+        raise ValidationError.new(output, self) unless valid?(output, false)
       end
     rescue
       raise CastError.new(input, self)

@@ -1,6 +1,6 @@
 # Contributing
 
-`Type` is [Apache-liennsed](LICENSE.txt).
+`Type` is [Apache-licensed](LICENSE.txt).
 
 ## Git-Flow
 

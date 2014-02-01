@@ -1,6 +1,8 @@
 # encoding: utf-8
 require 'type'
 
+require_relative '../spec_helper'
+
 Proc.const_set(:IDENTITY, ->(x) { x }) unless defined?(Proc::IDENTITY)
 
 describe Type::Definition do

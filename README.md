@@ -37,6 +37,12 @@ Type::Int32!(input) # alias for Type::Int32.cast!(input)
 `Type` comes with a variety of built-in type defintions, which can be used for
 validation or casting.
 
+ - [Scalar](#scalar-type-definitions)
+ - [Nilable Modifier](#nilable-type-definitions)
+ - [Collection](#collection-type-definitions)
+ - [Constrained Collections](#constrained-collection-type-definitions)
+ - [Nilable Constrained Collections](#nilable-constrained-collection-type-definitions)
+
 ### Scalar Type Definitions:
 
 The most basic type definitions are scalar
@@ -61,6 +67,21 @@ Type::Int32!(3.14)
 # => 3
 Type::Int32!('three')
 #! Type::CastError: Could not cast "three"(String) with Type::Int32
+~~~
+
+The complete list of built-in scalar type definitions is:
+
+~~~ ruby
+Type::Integer # {x∈ℤ}
+Type::Int32   # {x∈ℤ|[-2^31,2^31)}
+Type::Int64   # {x∈ℤ|[-2^63,2^63)}
+Type::UInt32  # {x∈ℕ|[0,2^32)}
+Type::UInt64  # {x∈ℕ|[0,2^64)}
+Type::Float   # {x∈ℝ,+∞,-∞}
+Type::Float32 # {x∈ℝ}
+Type::Float64 # {x∈ℝ}
+Type::Boolean # {true,false}
+Type::String  # any string
 ~~~
 
 ### Nilable Type Definitions:
@@ -107,6 +128,14 @@ Type::Set!([1,2,3])
 # => <Set: {1, 2, 3}>
 Type::Set!('foo')
 #! Type::CastError: Could not cast "foo"(String) with Type::Set
+~~~
+
+The complete list of built-in collection type definitions is:
+
+~~~ ruby
+Type::Array
+Type::Set
+Type::Hash
 ~~~
 
 ### Constrained Collection Type Definitions:
