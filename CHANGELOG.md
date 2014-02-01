@@ -2,6 +2,8 @@
 
 ## Next release (TBD)
 
+## 0.2.0 (2014-02-01)
+
  - Improve Type::Boolean to cast truthy and falsy objects to true and false.
  - Improve exception message when casting an out-of-range integer via one of
    the range-limited Integer type definitions (e.g., Int32)
